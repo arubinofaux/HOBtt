@@ -28,16 +28,16 @@ class TrackerController < ApplicationController
     
     @peers = []
     @torrent.peers.each do |peer|
-      @peers << {'ip' => peer.ip, 'port' => peer.port, 'peer id' => peer.peer_id}
+      @peers << {'ip' => peer.ip, 'port' => peer.port.to_i, 'peer id' => peer.peer_id}
     end
     
     response = {
-        'interval' => '900',
+        'interval' => 900,
         'peers' => @peers
     }
     
-    puts response.bencode
-    render :text => response.bencode
+    Rails.logger.info "\nResponse to #{@remote_ip}: " + response.bencode + "\n"
+    render :text => response.bencode, :content_type => "text/plain"
   end
 
   def scrape
