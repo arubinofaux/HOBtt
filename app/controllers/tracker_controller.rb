@@ -51,7 +51,7 @@ class TrackerController < ApplicationController
         break
       end
     end
-    @info_hash    = params[:info_hash].unpack('H*')
+    @info_hash    = params[:info_hash].unpack('H*')[0]
     @peer_id      = params[:peer_id]
     @port         = params[:port]
     @uploaded     = params[:uploaded].to_i
