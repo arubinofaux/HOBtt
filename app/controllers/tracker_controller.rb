@@ -36,6 +36,7 @@ class TrackerController < ApplicationController
         'peers' => @peers
     }
     
+    puts response.bencode
     render :text => response.bencode
   end
 
