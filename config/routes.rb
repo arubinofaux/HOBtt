@@ -1,4 +1,8 @@
 Bttracker::Application.routes.draw do
+  get "/announce" => "tracker#announce"
+
+  get "/scrape" => "tracker#scrape"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

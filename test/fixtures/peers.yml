@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  peer_id: MyString
+  ip: MyString
+  port: MyString
+
+two:
+  peer_id: MyString
+  ip: MyString
+  port: MyString
