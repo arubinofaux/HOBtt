@@ -36,7 +36,7 @@ class TrackerController < ApplicationController
         'peers' => @peers
     }
     
-    render :text => response.bencode.encode('utf-8', 'iso-8859-1')
+    render :text => response.bencode
   end
 
   def scrape
