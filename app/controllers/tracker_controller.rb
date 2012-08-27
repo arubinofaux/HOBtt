@@ -23,6 +23,7 @@ class TrackerController < ApplicationController
       @peer.downloaded = @dowloaded
       @peer.left = @left
       @peer.last_action_at = Time.now
+      @peer.save
     end
     
     @peers = []
