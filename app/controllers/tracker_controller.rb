@@ -41,6 +41,7 @@ class TrackerController < ApplicationController
   end
 
   def scrape
+    set_vars
     if params[:info_hash]
       @torrent = Torrent.find_by_info_hash(@info_hash)
       
