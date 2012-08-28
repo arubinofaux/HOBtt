@@ -41,8 +41,8 @@ class TrackerController < ApplicationController
   end
 
   def scrape
-    set_vars
     if params[:info_hash]
+      @info_hash = params[:info_hash].unpack('H*')[0]
       @torrent = Torrent.find_by_info_hash(@info_hash)
       
       if @torrent.nil?
