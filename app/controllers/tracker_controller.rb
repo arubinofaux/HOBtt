@@ -28,7 +28,7 @@ class TrackerController < ApplicationController
     
     @peers = []
     @torrent.peers.each do |peer|
-      @peers << {'ip' => peer.ip, 'port' => peer.port.to_i, 'peer id' => peer.peer_id}
+      @peers << {'ip' => peer.ip, 'port' => peer.port.to_i, 'peer id' => [peer.peer_id].pack('H*')}
     end
     
     response = {
