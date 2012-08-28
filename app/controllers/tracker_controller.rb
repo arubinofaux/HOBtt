@@ -55,7 +55,7 @@ class TrackerController < ApplicationController
       
       @response = {
         'files' => {
-          @info_hash => {
+          [@info_hash].pack('H*') => {
             'complete' => peers_count,
             'downloaded' => 0,
             'incomplete' => leechers_count
@@ -71,7 +71,7 @@ class TrackerController < ApplicationController
         peers_count = torrent.peers.where("leftt = '0'").count
         leechers_count = torrent.peers.count - peers_count
       
-        @files[torrent.info_hash] = {'complete' => peers_count, 'downloaded' => torrent.completed, 'incomplete' => leechers_count}
+        @files[[torrent.info_hash].pack('H*')] = {'complete' => peers_count, 'downloaded' => torrent.completed, 'incomplete' => leechers_count}
       end
       
       @response = {'files' => @files}
