@@ -3,6 +3,10 @@ class Torrent < ActiveRecord::Base
   
   has_many :peers, :dependent => :destroy
   
+  def completed
+    0
+  end
+  
   def seeders
     Peer.find(:all, :conditions => ["torrent_id = ? AND left LIKE ?", self.id, "0"]).count
   end

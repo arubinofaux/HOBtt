@@ -36,11 +36,48 @@ class TrackerController < ApplicationController
         'peers' => @peers
     }
     
-    Rails.logger.info "\nResponse to #{@remote_ip}: " + response.bencode + "\n"
+    Rails.logger.info "\nAnnounce response to #{@remote_ip}: " + response.bencode + "\n"
     render :text => response.bencode, :content_type => "text/plain"
   end
 
   def scrape
+    if params[:info_hash]
+      @torrent = Torrent.find_by_info_hash(@info_hash)
+      
+      if @torrent.nil?
+        render_error "Could not find torrent for info hash #{@info_hash}"
+        return
+      end
+      
+      peers_count = @torrent.peers.find(:all, :conditions => ["left LIKE ?", '0']).count
+      leechers_count = @torrent.peers.count - peers_count
+      
+      @response = {
+        'files' => {
+          @info_hash => {
+            'complete' => peers_count,
+            'downloaded' => 0,
+            'incomplete' => leechers_count
+          }
+        }
+      }
+    
+    else
+      @torrents = Torrent.all
+      @files = {}
+      
+      @torrents.each do |torrent|
+        peers_count = torrent.peers.find(:all, :conditions => ["left LIKE ?", '0']).count
+        leechers_count = torrent.peers.count - peers_count
+      
+        @files << torrent.info_hash => {'complete' => peers_count, 'downloaded' => torrent.completed, 'incomplete' => leechers_count}
+      end
+      
+      @response = {'files' => @files}
+    end
+    
+    Rails.logger.info "\nScrape response to #{@remote_ip}: " + @response.bencode + "\n"
+    render :text => @response.bencode, :content_type => "text/plain"
   end
   
   private
