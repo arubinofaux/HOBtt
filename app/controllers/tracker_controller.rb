@@ -50,7 +50,7 @@ class TrackerController < ApplicationController
         return
       end
       
-      peers_count = @torrent.peers.find(:all, :conditions => ["left LIKE ?", '0']).count
+      peers_count = @torrent.peers.find(:all, :conditions => ["left = ?", '0']).count
       leechers_count = @torrent.peers.count - peers_count
       
       @response = {
