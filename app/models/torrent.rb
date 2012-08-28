@@ -8,10 +8,10 @@ class Torrent < ActiveRecord::Base
   end
   
   def seeders
-    Peer.find(:all, :conditions => ["torrent_id = ? AND left LIKE ?", self.id, "0"]).count
+    Peer.all.where("torrent_id = ? AND leftt = ?", self.id, '0').count
   end
   
   def leechers
-    Peer.find(:all, :conditions => ["torrent_id = ? AND left NOT LIKE ?", self.id, "0"]).count
+    Peer.all.where("torrent_id = ? AND leftt NOT LIKE ?", self.id, '0').count
   end
 end

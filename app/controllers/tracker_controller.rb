@@ -15,7 +15,7 @@ class TrackerController < ApplicationController
         :port => @port,
         :uploaded => @uploaded.to_s,
         :downloaded => @downloaded.to_s,
-        :left => @left.to_s,
+        :leftt => @left.to_s,
         :last_action_at => Time.now
       })
     else
@@ -50,7 +50,7 @@ class TrackerController < ApplicationController
         return
       end
       
-      peers_count = @torrent.peers.where("left LIKE '0'").count
+      peers_count = @torrent.peers.where("leftt = '0'").count
       leechers_count = @torrent.peers.count - peers_count
       
       @response = {
@@ -68,7 +68,7 @@ class TrackerController < ApplicationController
       @files = {}
       
       @torrents.each do |torrent|
-        peers_count = torrent.peers.where("left LIKE ?", '0').count
+        peers_count = torrent.peers.where("leftt = '0'").count
         leechers_count = torrent.peers.count - peers_count
       
         @files[torrent.info_hash] = {'complete' => peers_count, 'downloaded' => torrent.completed, 'incomplete' => leechers_count}
