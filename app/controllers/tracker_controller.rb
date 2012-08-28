@@ -21,7 +21,7 @@ class TrackerController < ApplicationController
     else
       @peer.uploaded = @uploaded
       @peer.downloaded = @dowloaded
-      @peer.left = @left
+      @peer.leftt = @left
       @peer.last_action_at = Time.now
       @peer.save
     end

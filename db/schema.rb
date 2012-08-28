@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120827142622) do
+ActiveRecord::Schema.define(:version => 20120828151208) do
 
   create_table "peers", :force => true do |t|
     t.string   "peer_id"
@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(:version => 20120827142622) do
     t.datetime "updated_at",     :null => false
     t.string   "uploaded"
     t.string   "downloaded"
-    t.string   "left"
+    t.string   "leftt"
     t.datetime "last_action_at"
     t.integer  "torrent_id"
   end
