@@ -1,1 +1,3 @@
-<%= number_to_human_size(1362472322476) %>
+<% @torrent_files.each do |f| %>
+    <%= link_to 'DL', download_url(:id => f.id) %>
+<% end %>
