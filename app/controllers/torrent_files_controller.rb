@@ -47,7 +47,7 @@ class TorrentFilesController < ApplicationController
     size = 0
     if data['info']['files']
       data['info']['files'].each do |f|
-        size += f.length
+        size += f['length']
       end
     else
       size = data['info']['length']
