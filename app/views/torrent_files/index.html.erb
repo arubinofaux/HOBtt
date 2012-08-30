@@ -1,3 +1,3 @@
 <% @torrent_files.each do |f| %>
-    <%= link_to 'DL', download_url(:id => f.id) %>
+    <p><%= link_to f.name, download_url(:id => f.id) %>, size: <%= number_to_human_size(f.size, :prefix => :si, :precision => 1, :significant => false) %>, seeders: <%= f.torrent.seeders.count %>, leechers: <%= f.torrent.leechers.count %><p>
 <% end %>

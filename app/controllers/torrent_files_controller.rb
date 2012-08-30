@@ -23,6 +23,7 @@ class TorrentFilesController < ApplicationController
     
     @torrent_file.filename = original_filename
     @torrent_file.name = torrent_data['info']['name']
+    @torrent_file.size = calculate_file_size(torrent_data)
     @torrent_file.torrent_id = torrent.id unless torrent.nil?
     
     if @torrent_file.save
@@ -38,5 +39,19 @@ class TorrentFilesController < ApplicationController
   def download
     filename = TorrentFile.find(params[:id]).filename
     send_file(File.join(TORRENT_FILES_ROOT, filename), :type => :torrent)
+  end
+  
+  private
+  
+  def calculate_file_size(data)
+    size = 0
+    if data['info']['files']
+      data['info']['files'].each do |f|
+        size += f.length
+      end
+    else
+      size = data['info']['length']
+    end
+    size
   end
 end
