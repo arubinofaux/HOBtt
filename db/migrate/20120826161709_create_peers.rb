@@ -3,7 +3,7 @@ class CreatePeers < ActiveRecord::Migration
     create_table :peers do |t|
       t.string :peer_id
       t.string :ip
-      t.string :port
+      t.integer :port
 
       t.timestamps
     end

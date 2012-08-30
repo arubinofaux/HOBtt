@@ -15,9 +15,9 @@ class TrackerController < ApplicationController
         :peer_id => @peer_id,
         :ip => @remote_ip,
         :port => @port,
-        :uploaded => @uploaded.to_s,
-        :downloaded => @downloaded.to_s,
-        :leftt => @left.to_s,
+        :uploaded => @uploaded,
+        :downloaded => @downloaded,
+        :leftt => @left,
         :last_action_at => Time.now
       })
     else
@@ -30,7 +30,7 @@ class TrackerController < ApplicationController
     
     @peers = []
     @torrent.peers.each do |peer|
-      @peers << {'ip' => peer.ip, 'port' => peer.port.to_i, 'peer id' => [peer.peer_id].pack('H*')}
+      @peers << {'ip' => peer.ip, 'port' => peer.port, 'peer id' => [peer.peer_id].pack('H*')}
     end
     
     response = {
@@ -93,7 +93,7 @@ class TrackerController < ApplicationController
     end
     @info_hash    = params[:info_hash].unpack('H*')[0]
     @peer_id      = params[:peer_id].unpack('H*')[0]
-    @port         = params[:port]
+    @port         = params[:port].to_i
     @uploaded     = params[:uploaded].to_i
     @downloaded   = params[:downloaded].to_i
     @left         = params[:left].to_i

@@ -11,18 +11,28 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120830005813) do
+ActiveRecord::Schema.define(:version => 20120830201155) do
 
   create_table "peers", :force => true do |t|
     t.string   "peer_id"
     t.string   "ip"
-    t.string   "port"
+    t.integer  "port"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
-    t.string   "uploaded"
-    t.string   "downloaded"
-    t.string   "leftt"
+    t.integer  "uploaded"
+    t.integer  "downloaded"
+    t.integer  "leftt"
     t.datetime "last_action_at"
+    t.integer  "torrent_id"
+  end
+
+  create_table "torrent_files", :force => true do |t|
+    t.string   "name"
+    t.integer  "size"
+    t.string   "filename"
+    t.integer  "files_count"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.integer  "torrent_id"
   end
 

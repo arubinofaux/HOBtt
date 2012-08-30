@@ -1,8 +1,14 @@
 Bttracker::Application.routes.draw do
+  root :to => "torrent_files#index"
+
   get "/announce" => "tracker#announce"
 
   get "/scrape" => "tracker#scrape"
 
+  post "/upload" => "torrent_files#upload"
+  
+  match "torrents/:id/download" => "torrent_files#download", :as => :download
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
