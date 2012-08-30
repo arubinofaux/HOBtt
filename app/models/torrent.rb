@@ -1,5 +1,5 @@
 class Torrent < ActiveRecord::Base
-  attr_accessible :info_hash, :name, :description
+  attr_accessible :info_hash, :name, :description, :completed
   
   has_many :peers, :dependent => :destroy
   
