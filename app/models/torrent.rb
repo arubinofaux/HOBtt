@@ -3,10 +3,6 @@ class Torrent < ActiveRecord::Base
   
   has_many :peers, :dependent => :destroy
   
-  def completed
-    0
-  end
-  
   def seeders
     self.peers.where("leftt = ?", '0')
   end
