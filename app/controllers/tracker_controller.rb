@@ -4,8 +4,10 @@ class TrackerController < ApplicationController
   def announce
     set_vars
     
-    @torrent = Torrent.find_by_info_hash(@info_hash)
-    @torrent = Torrent.create({:info_hash => @info_hash}) if @torrent.nil?
+    @torrent = Torrent.find_or_create_by_info_hash(@info_hash)
+    
+    @torrent.completed += 1 if @event && @event == 'completed'
+    @torrent.save
     
     @peer = @torrent.peers.find_by_peer_id(@peer_id)
     if @peer.nil?
@@ -50,15 +52,12 @@ class TrackerController < ApplicationController
         return
       end
       
-      peers_count = @torrent.peers.where("leftt = '0'").count
-      leechers_count = @torrent.peers.count - peers_count
-      
       @response = {
         'files' => {
           [@info_hash].pack('H*') => {
-            'complete' => peers_count,
-            'downloaded' => 0,
-            'incomplete' => leechers_count
+            'complete' => @torrent.seeders.count,
+            'downloaded' => @torrent.completed,
+            'incomplete' => @torrent.leechers.count
           }
         }
       }
@@ -68,10 +67,11 @@ class TrackerController < ApplicationController
       @files = {}
       
       @torrents.each do |torrent|
-        peers_count = torrent.peers.where("leftt = '0'").count
-        leechers_count = torrent.peers.count - peers_count
-      
-        @files[[torrent.info_hash].pack('H*')] = {'complete' => peers_count, 'downloaded' => torrent.completed, 'incomplete' => leechers_count}
+        @files[[torrent.info_hash].pack('H*')] = {
+          'complete' => torrent.seeders.count,
+          'downloaded' => torrent.completed,
+          'incomplete' => torrent.leechers.count
+        }
       end
       
       @response = {'files' => @files}
