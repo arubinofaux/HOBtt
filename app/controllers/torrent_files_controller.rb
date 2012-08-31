@@ -3,7 +3,7 @@ class TorrentFilesController < ApplicationController
   TORRENT_FILES_ROOT = File.join Rails.public_path, 'torrent_files'
 
   def index
-    @torrent_files = TorrentFile.all(:order => "name DESC")
+    @torrent_files = TorrentFile.all(:order => "name")
   end
   
   def new

@@ -6,7 +6,7 @@ class TrackerController < ApplicationController
     
     @torrent = Torrent.find_or_create_by_info_hash(@info_hash)
     
-    @torrent.completed += 1 if @event && @event == 'completed'
+    @torrent.completed += 1 if @event == 'completed'
     @torrent.save
     
     @peer = @torrent.peers.find_by_peer_id(@peer_id)
@@ -20,7 +20,7 @@ class TrackerController < ApplicationController
         :leftt => @left,
         :last_action_at => Time.now
       })
-    elsif (@event && @event == 'stopped') || (@peer.last_action_at - Time.now) > 15.minutes
+    elsif @event == 'stopped'
       @peer.destroy
       return
     else
