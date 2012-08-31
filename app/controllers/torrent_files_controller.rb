@@ -13,6 +13,8 @@ class TorrentFilesController < ApplicationController
     @torrent_file = TorrentFile.new
     
     temp_data = params[:file]
+    raise InvalidFileTypeError.new("Not a torrent file!") unless temp_data.content_type == "application/x-bittorrent"
+    
     original_filename = temp_data.original_filename
     torrent_file_data = temp_data.read
     
@@ -23,7 +25,7 @@ class TorrentFilesController < ApplicationController
     
     @torrent_file.filename = original_filename
     @torrent_file.name = torrent_data['info']['name']
-    @torrent_file.size = calculate_file_size(torrent_data)
+    @torrent_file.size, @torrent_file.files_count = file_size_and_count(torrent_data)
     @torrent_file.torrent_id = torrent.id unless torrent.nil?
     
     if @torrent_file.save
@@ -43,15 +45,18 @@ class TorrentFilesController < ApplicationController
   
   private
   
-  def calculate_file_size(data)
+  def file_size_and_count(data)
     size = 0
+    count = 0
     if data['info']['files']
       data['info']['files'].each do |f|
         size += f['length']
+        count += 1
       end
     else
       size = data['info']['length']
+      count = 1
     end
-    size
+    [size, count]
   end
 end

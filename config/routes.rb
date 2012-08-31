@@ -5,7 +5,7 @@ Bttracker::Application.routes.draw do
 
   get "/scrape" => "tracker#scrape"
 
-  get "/upload" => "torrent_files#new"
+  get "/upload" => "torrent_files#new", :as => :upload
   post "/upload" => "torrent_files#upload"
   
   match "torrents/:id/download" => "torrent_files#download", :as => :download

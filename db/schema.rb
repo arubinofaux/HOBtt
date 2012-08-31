@@ -28,11 +28,11 @@ ActiveRecord::Schema.define(:version => 20120830201155) do
 
   create_table "torrent_files", :force => true do |t|
     t.string   "name"
-    t.integer  "size"
+    t.integer  "size",        :limit => 8
     t.string   "filename"
     t.integer  "files_count"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
     t.integer  "torrent_id"
   end
 

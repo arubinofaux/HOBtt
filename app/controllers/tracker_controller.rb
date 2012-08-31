@@ -22,7 +22,7 @@ class TrackerController < ApplicationController
       })
     else
       @peer.uploaded = @uploaded
-      @peer.downloaded = @dowloaded
+      @peer.downloaded = @downloaded
       @peer.leftt = @left
       @peer.last_action_at = Time.now
       @peer.save
@@ -34,7 +34,7 @@ class TrackerController < ApplicationController
     end
     
     response = {
-        'interval' => 900,
+        'interval' => 600,
         'peers' => @peers
     }
     
@@ -48,7 +48,7 @@ class TrackerController < ApplicationController
       @torrent = Torrent.find_by_info_hash(@info_hash)
       
       if @torrent.nil?
-        render_error "Could not find torrent for info hash #{@info_hash}"
+        failure_response "Could not find torrent for info hash #{@info_hash}"
         return
       end
       
@@ -84,10 +84,10 @@ class TrackerController < ApplicationController
   private
   
   def set_vars
-    @rsize = 50
+    @numwant = 50
     ['num want', 'numwant', 'num_want'].each do |k|
       if params[k]
-        @rsize = params[k].to_i
+        @numwant = params[k].to_i
         break
       end
     end
@@ -98,6 +98,5 @@ class TrackerController < ApplicationController
     @downloaded   = params[:downloaded].to_i
     @left         = params[:left].to_i
     @event        = params[:event]
-    @seeder       = (@left == 0) ? true : false
   end
 end

@@ -1,6 +1,12 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   
+  class InvalidFileTypeError < StandardError; end
+  
+  rescue_from InvalidFileTypeError do |e|
+    redirect_to :root, :alert => e.message
+  end
+  
   protected
   
   def get_remote_ip
@@ -12,7 +18,7 @@ class ApplicationController < ActionController::Base
     return @remote_ip
   end
   
-  def render_error(msg)
-    render :text => error(msg)
+  def failure_response(msg)
+    render :text => {"failure reason" => "#{msg}"}.bencode, :content_type => "text/plain"
   end
 end
