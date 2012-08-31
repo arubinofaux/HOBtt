@@ -20,6 +20,9 @@ class TrackerController < ApplicationController
         :leftt => @left,
         :last_action_at => Time.now
       })
+    elsif (@event && @event == 'stopped') || (@peer.last_action_at - Time.now) > 15.minutes
+      @peer.destroy
+      return
     else
       @peer.uploaded = @uploaded
       @peer.downloaded = @downloaded
