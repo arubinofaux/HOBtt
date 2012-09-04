@@ -11,17 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120830201155) do
+ActiveRecord::Schema.define(:version => 20120902211012) do
 
   create_table "peers", :force => true do |t|
     t.string   "peer_id"
     t.string   "ip"
     t.integer  "port"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
-    t.integer  "uploaded"
-    t.integer  "downloaded"
-    t.integer  "leftt"
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+    t.integer  "uploaded",       :limit => 8
+    t.integer  "downloaded",     :limit => 8
+    t.integer  "leftt",          :limit => 8
     t.datetime "last_action_at"
     t.integer  "torrent_id"
   end

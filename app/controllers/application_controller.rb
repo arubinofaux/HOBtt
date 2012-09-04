@@ -21,4 +21,11 @@ class ApplicationController < ActionController::Base
   def failure_response(msg)
     render :text => {"failure reason" => "#{msg}"}.bencode, :content_type => "text/plain"
   end
+  
+  def sanitize_filename(filename)
+    filename.strip
+    filename.gsub! /.torrent$/, ''
+    filename.gsub! /[^\w]/, '_'
+    filename + '.torrent'
+  end
 end

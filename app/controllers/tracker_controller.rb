@@ -37,7 +37,7 @@ class TrackerController < ApplicationController
     end
     
     response = {
-        'interval' => 600,
+        'interval' => T_SETTINGS[:announce_interval],
         'peers' => @peers
     }
     

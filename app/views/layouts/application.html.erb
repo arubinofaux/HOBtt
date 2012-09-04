@@ -10,6 +10,8 @@
 
 <% if flash[:alert] %>
     <p><%= flash[:alert] %></p>
+<% elsif flash[:notice] %>
+    <p><%= flash[:notice] %></p>
 <% end %>
 
 <%= yield %>
