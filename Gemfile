@@ -10,6 +10,7 @@ gem 'pg'
 gem 'bencode'
 gem 'thin'
 gem 'whenever', :require => false
+gem 'dynamic_form'
 
 # Gems used only for assets and not required
 # in production environments by default.

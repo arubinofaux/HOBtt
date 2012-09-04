@@ -8,6 +8,10 @@
 </head>
 <body>
 
+<header>
+    <h1>HOBtt</h1>
+</header>
+
 <% if flash[:alert] %>
     <p><%= flash[:alert] %></p>
 <% elsif flash[:notice] %>
@@ -15,6 +19,14 @@
 <% end %>
 
 <%= yield %>
+
+<footer>
+    <p class="monospace">
+        :coded_by => <%= link_to 'mrLite', 'http://aq.nerds.fi/' %>, 
+        :with => <%= link_to 'coffee', 'http://en.wikipedia.org/wiki/Coffee' %>, 
+        :sauce => <%= link_to 'github', 'http://github.com/mrLite/HOBtt' %>
+    </p>
+</footer>
 
 </body>
 </html>
