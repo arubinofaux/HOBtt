@@ -2,10 +2,17 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   
   class InvalidFileTypeError < StandardError; end
+  class FileMissingError < StandardError; end
   
   rescue_from InvalidFileTypeError do |e|
     redirect_to :root, :alert => e.message
   end
+  
+  rescue_from FileMissingError do |e|
+    redirect_to :root, :alert => e.message
+  end
+  
+  helper_method :magnet_uri_for
   
   protected
   
@@ -27,5 +34,15 @@ class ApplicationController < ActionController::Base
     filename.gsub! /.torrent$/, ''
     filename.gsub! /[^\w]/, '_'
     filename + '.torrent'
+  end
+  
+  def magnet_uri_for(torrent)
+    uri = "magnet:?"
+    hash = {
+      :dn => torrent.torrent_file.name,
+      :tr => "http://#{request.host_with_port}/announce"
+    }
+    uri << hash.to_query
+    uri << "&xt=urn:btih:#{torrent.info_hash}"
   end
 end

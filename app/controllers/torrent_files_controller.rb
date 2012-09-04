@@ -12,6 +12,8 @@ class TorrentFilesController < ApplicationController
     @torrent_file = TorrentFile.new
     
     temp_data = params[:file]
+    raise FileMissingError.new "Missing a file!" if temp_data.nil?
+    
     raise InvalidFileTypeError.new "Not a torrent file!" unless temp_data.content_type == "application/x-bittorrent"
     
     sanitized_filename = sanitize_filename(temp_data.original_filename)
@@ -26,15 +28,15 @@ class TorrentFilesController < ApplicationController
       return
     end
     
-    @torrent_file.filename = sanitized_filename
+    @torrent_file.filename = SecureRandom.hex(8) + '-' + sanitized_filename
     @torrent_file.name = torrent_data['info']['name']
     @torrent_file.size, @torrent_file.files_count = file_size_and_count(torrent_data)
     @torrent_file.torrent = torrent
     
     if @torrent_file.save
-      filename = File.join T_SETTINGS[:torrent_file_root], sanitized_filename
+      file_path = File.join T_SETTINGS[:torrent_file_root], @torrent_file.filename
       torrent_data['comment'] = T_SETTINGS[:torrent_comment]
-      File.open(filename, 'wb') do |f|
+      File.open(file_path, 'wb') do |f|
         f.write(torrent_data.bencode)
       end
       
@@ -43,8 +45,8 @@ class TorrentFilesController < ApplicationController
   end
   
   def download
-    filename = TorrentFile.find(params[:id]).filename
-    send_file(File.join(T_SETTINGS[:torrent_file_root], filename), :type => :torrent)
+    file_path = File.join T_SETTINGS[:torrent_file_root], TorrentFile.find(params[:id]).filename
+    send_file file_path, :type => :torrent
   end
   
   private

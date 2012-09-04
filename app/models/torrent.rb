@@ -1,8 +1,10 @@
 class Torrent < ActiveRecord::Base
   attr_accessible :info_hash, :name, :description, :completed
   
-  has_many :peers, :dependent => :destroy
-  has_one :torrent_file, :dependent => :destroy
+  with_options :dependent => :destroy do |i|
+    i.has_many :peers
+    i.has_one :torrent_file
+  end
   
   def seeders
     self.peers.where("leftt = ?", 0)
