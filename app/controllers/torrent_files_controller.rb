@@ -32,14 +32,9 @@ class TorrentFilesController < ApplicationController
     @torrent_file.name = torrent_data['info']['name']
     @torrent_file.size, @torrent_file.files_count = file_size_and_count(torrent_data)
     @torrent_file.torrent = torrent
+    @torrent_file.torrent_data = torrent_data
     
     if @torrent_file.save
-      file_path = File.join T_SETTINGS[:torrent_file_root], @torrent_file.filename
-      torrent_data['comment'] = T_SETTINGS[:torrent_comment]
-      File.open(file_path, 'wb') do |f|
-        f.write(torrent_data.bencode)
-      end
-      
       redirect_to :root
     end
   end
