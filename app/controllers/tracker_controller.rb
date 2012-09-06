@@ -22,7 +22,7 @@ class TrackerController < ApplicationController
       })
     elsif @event == 'stopped'
       @peer.destroy
-      return
+      render :nothing => true
     else
       @peer.uploaded = @uploaded
       @peer.downloaded = @downloaded
@@ -32,7 +32,7 @@ class TrackerController < ApplicationController
     end
     
     @peers = []
-    @torrent.peers.each do |peer|
+    @torrent.peers.all(:limit => @numwant).each do |peer|
       @peers << {'ip' => peer.ip, 'port' => peer.port, 'peer id' => [peer.peer_id].pack('H*')}
     end
     

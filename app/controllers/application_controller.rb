@@ -30,19 +30,18 @@ class ApplicationController < ActionController::Base
   end
   
   def sanitize_filename(filename)
-    filename.strip
+    filename.strip!
     filename.gsub! /.torrent$/, ''
-    filename.gsub! /[^\w]/, '_'
-    filename + '.torrent'
+    SecureRandom.hex(8) + '-' + filename.parameterize('_') + '.torrent'
   end
   
   def magnet_uri_for(torrent)
-    uri = "magnet:?"
+    uri = "magnet:?xt=urn:btih:"
+    uri << torrent.info_hash
     hash = {
       :dn => torrent.torrent_file.name,
       :tr => "http://#{request.host_with_port}/announce"
     }
     uri << hash.to_query
-    uri << "&xt=urn:btih:#{torrent.info_hash}"
   end
 end

@@ -28,7 +28,7 @@ class TorrentFilesController < ApplicationController
       return
     end
     
-    @torrent_file.filename = SecureRandom.hex(8) + '-' + sanitized_filename
+    @torrent_file.filename = sanitized_filename
     @torrent_file.name = torrent_data['info']['name']
     @torrent_file.size, @torrent_file.files_count = file_size_and_count(torrent_data)
     @torrent_file.torrent = torrent
