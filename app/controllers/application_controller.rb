@@ -36,8 +36,7 @@ class ApplicationController < ActionController::Base
   end
   
   def magnet_uri_for(torrent)
-    uri = "magnet:?xt=urn:btih:"
-    uri << torrent.info_hash
+    uri = "magnet:?xt=urn:btih:#{torrent.info_hash}&"
     hash = {
       :dn => torrent.torrent_file.name,
       :tr => "http://#{request.host_with_port}/announce"

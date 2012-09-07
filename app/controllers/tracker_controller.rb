@@ -31,9 +31,16 @@ class TrackerController < ApplicationController
       @peer.save
     end
     
-    @peers = []
-    @torrent.peers.all(:limit => @numwant).each do |peer|
-      @peers << {'ip' => peer.ip, 'port' => peer.port, 'peer id' => [peer.peer_id].pack('H*')}
+    if @compact
+      @peers = ""
+      @torrent.peers.all(:limit => @numwant).each do |peer|
+        @peers << peer.compact_ip
+      end
+    else
+      @peers = []
+      @torrent.peers.all(:limit => @numwant).each do |peer|
+        @peers << {'ip' => peer.ip, 'port' => peer.port, 'peer id' => [peer.peer_id].pack('H*')}
+      end
     end
     
     response = {
@@ -101,5 +108,6 @@ class TrackerController < ApplicationController
     @downloaded   = params[:downloaded].to_i
     @left         = params[:left].to_i
     @event        = params[:event]
+    @compact      = params[:compact].to_i
   end
 end

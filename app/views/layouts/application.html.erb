@@ -7,26 +7,32 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-<header>
-    <h1>HOBtt</h1>
+<header class="red_bg">
+    <div id="logo">
+        <h1>HOBtt</h1>
+    </div>
 </header>
 
-<% if flash[:alert] %>
-    <p><%= flash[:alert] %></p>
-<% elsif flash[:notice] %>
-    <p><%= flash[:notice] %></p>
-<% end %>
+<div id="main_container">
+    <section id="main">
+        <% if flash[:alert] %>
+            <p><%= flash[:alert] %></p>
+        <% elsif flash[:notice] %>
+            <p><%= flash[:notice] %></p>
+        <% end %>
 
-<%= yield %>
+        <%= yield %>
+    </section>
+</div>
 
-<footer>
-    <p class="monospace">
+<div id="footer_container" class="red_bg">
+    <footer>
+        <p class="monospace">
         :coded_by => <%= link_to 'mrLite', 'http://aq.nerds.fi/' %>, 
         :with => <%= link_to 'coffee', 'http://en.wikipedia.org/wiki/Coffee' %>, 
         :sauce => <%= link_to 'github', 'http://github.com/mrLite/HOBtt' %>
-    </p>
-</footer>
-
+        </p>
+    </footer>
+</div>
 </body>
 </html>

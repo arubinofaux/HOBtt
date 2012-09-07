@@ -2,6 +2,65 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+* {margin: 0;}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  position: relative;
+  height: auto !important;
+  min-height: 100%;
+}
+
+.red_bg {
+  color: #ddd;
+  background: #9b0002; /* Old browsers */
+  background: -moz-linear-gradient(top,  #9b0002 0%, #d80003 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#9b0002), color-stop(100%,#d80003)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  #9b0002 0%,#d80003 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  #9b0002 0%,#d80003 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  #9b0002 0%,#d80003 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  #9b0002 0%,#d80003 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#9b0002', endColorstr='#d80003',GradientType=0 ); /* IE6-9 */
+}
+
+header {
+  position: fixed;
+  width: 100%;
+  margin: 0;
+  padding: 0.5em 0;
+}
+
+#logo {
+  width: 75%;
+  margin: 0 auto;
+}
+
+#main_container {
+  padding: 5em 0 0;
+}
+
+section#main {
+  width: 75%;
+  margin: 0 auto;
+}
+
+#footer_container {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 2em 0;
+}
+
+footer {
+  width: 75%;
+  margin: 0 auto;
+}
+
 .monospace {
   font-family: monospace;
 }
