@@ -1,4 +1,28 @@
 <p><%= link_to 'Upload', upload_url %> a torrent file</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>DL</th>
+            <th></th>
+            <th>Name</th>
+            <th>Size</th>
+            <th>Files</th>
+            <th>Seeders</th>
+            <th>Leechers</th>
+        </tr>
+    </thead>
 <% @torrent_files.each do |f| %>
-    <p><%= link_to 'magnet', magnet_uri_for(f.torrent) %> <%= link_to 'torrent', download_url(:id => f.id) %> <%= f.name %>, size: <%= number_to_human_size(f.size, :prefix => :si, :precision => 2, :significant => false) %>, files: <%= f.files_count %>, seeders: <%= f.torrent.seeders.count %>, leechers: <%= f.torrent.leechers.count %></p>
+    <tbody>
+        <tr>
+            <td><%= link_to 'magnet', magnet_uri_for(f.torrent) %></td>
+            <td><%= link_to 'torrent', download_url(:id => f.id) %></td>
+            <td><%= f.name %></td>
+            <td><%= number_to_human_size(f.size, :prefix => :si, :precision => 2, :significant => false) %></td>
+            <td><%= f.files_count %></td>
+            <td><%= f.torrent.seeders.count %></td>
+            <td><%= f.torrent.leechers.count %></td>
+        </tr>
+    </tbody>
 <% end %>
+</table>
