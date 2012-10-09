@@ -11,6 +11,8 @@ gem 'bencode'
 gem 'thin'
 gem 'whenever', :require => false
 gem 'dynamic_form'
+gem 'foreman'
+gem 'delayed_job_active_record'
 
 # Gems used only for assets and not required
 # in production environments by default.
