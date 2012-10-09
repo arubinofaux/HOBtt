@@ -13,6 +13,7 @@ gem 'whenever', :require => false
 gem 'dynamic_form'
 gem 'foreman'
 gem 'delayed_job_active_record'
+gem 'clockwork'
 
 # Gems used only for assets and not required
 # in production environments by default.
