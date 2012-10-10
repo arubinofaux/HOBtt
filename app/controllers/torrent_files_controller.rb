@@ -32,9 +32,10 @@ class TorrentFilesController < ApplicationController
     @torrent_file.name = torrent_data['info']['name']
     @torrent_file.size, @torrent_file.files_count = file_size_and_count(torrent_data)
     @torrent_file.torrent = torrent
-    @torrent_file.torrent_data = torrent_data
+    #@torrent_file.torrent_data = torrent_data
     
     if @torrent_file.save
+      @torrent_file.delay.save_torrent_file(torrent_data)
       redirect_to :root
     end
   end

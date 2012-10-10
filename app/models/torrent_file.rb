@@ -4,11 +4,11 @@ class TorrentFile < ActiveRecord::Base
   attr_accessible :filename, :files_count, :name, :size
   attr_accessor :torrent_data
   
-  before_save do |tf|
-    @torrent_data = tf.torrent_data
-  end
+  #before_save do |tf|
+  #  @torrent_data = tf.torrent_data
+  #end
   
-  after_save :save_torrent_file
+  #after_save :save_torrent_file
   
   before_destroy :destroy_torrent_file
   
@@ -19,12 +19,12 @@ class TorrentFile < ActiveRecord::Base
   end
   handle_asynchronously :destroy_torrent_file
   
-  def save_torrent_file
+  def save_torrent_file(torrent_data)
     file_path = File.join T_SETTINGS[:torrent_file_root], self.filename
-    @torrent_data['comment'] = T_SETTINGS[:torrent_comment]
+    torrent_data['comment'] = T_SETTINGS[:torrent_comment]
     File.open(file_path, 'wb') do |f|
-      f.write(@torrent_data.bencode)
+      f.write(torrent_data.bencode)
     end
   end
-  handle_asynchronously :save_torrent_file
+  #handle_asynchronously :save_torrent_file
 end
