@@ -23,6 +23,7 @@ class TrackerController < ApplicationController
     elsif @event == 'stopped'
       @peer.destroy
       render :nothing => true
+      return
     else
       @peer.uploaded = @uploaded
       @peer.downloaded = @downloaded
