@@ -65,13 +65,10 @@ header {
 section#main {
   width: 75%;
   margin: 0 auto;
+  margin-top: 1em;
 }
 
-#torrents_table {
-  margin-top: 2em;
-}
-
-#torrents_table > thead > th > tr {
+#torrents_table thead tr th {
   border: none;
 }
 

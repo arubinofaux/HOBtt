@@ -1,25 +1,24 @@
-<table id="torrents_table" class="table table-striped">
+<table id="torrents_table" class="table table-striped table-bordered">
     <thead class="red_bg">
         <tr>
-            <th colspan="2">DL</th>
+            <th>DL</th>
             <th>Name</th>
             <th>Size</th>
             <th>Files</th>
-            <th><i class="icon-circle-arrow-up icon-white"></i></th>
-            <th><i class="icon-circle-arrow-down icon-white"></i></th>
+            <th><i class="icon-circle-arrow-up icon-white" title="seeders"></i></th>
+            <th><i class="icon-circle-arrow-down icon-white" title="leechers"></i></th>
         </tr>
     </thead>
-<% @torrent_files.each do |f| %>
     <tbody>
+    <% @torrent_files.each do |f| %>
         <tr>
-            <td><%= link_to 'magnet', magnet_uri_for(f.torrent) %></td>
-            <td><%= link_to 'torrent', download_url(:id => f.id) %></td>
+            <td><a href=<%= magnet_uri_for(f.torrent) %>><i class="icon-magnet" title="magnet"></i></a> <a href=<%= download_url(:id => f.id) %>><i class="icon-file" title="torrent file"></i></a></td>
             <td><%= f.name %></td>
             <td><%= number_to_human_size(f.size, :prefix => :si, :precision => 2, :significant => false) %></td>
             <td><%= f.files_count %></td>
             <td><%= f.torrent.seeders.count %></td>
             <td><%= f.torrent.leechers.count %></td>
         </tr>
+    <% end %>
     </tbody>
-<% end %>
 </table>

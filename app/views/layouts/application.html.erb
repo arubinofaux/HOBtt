@@ -13,7 +13,7 @@
             <h1>HOBtt</h1>
         </div>
         <div id="upload_link">
-            <a href=<%= upload_url %> class="btn"><i class="icon-file"></i> Upload a torrent file</a>
+            <button role="button" class="btn" data-toggle="modal" data-target="#upload"><i class="icon-file"></i> Upload a torrent file</button>
         </div>
     </div>
 </header>
@@ -21,9 +21,15 @@
 <div id="main_container">
     <section id="main">
         <% if flash[:alert] %>
-            <p><%= flash[:alert] %></p>
+            <div class="alert alert-error fade in">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>Warning:</strong> <%= flash[:alert] %>
+            </div>
         <% elsif flash[:notice] %>
-            <p><%= flash[:notice] %></p>
+            <div class="alert alert-error fade in">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>Warning:</strong> <%= flash[:notice] %>
+            </div>
         <% end %>
 
         <%= yield %>
@@ -38,6 +44,29 @@
         :sauce => <%= link_to 'github', 'http://github.com/mrLite/HOBtt' %>
         </p>
     </footer>
+</div>
+
+<div id="upload" class="modal hide fade" role="dialog" aria-labelledby="uploadLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h2 id="uploadLabel">Upload a torrent file</h2>
+    </div>
+    <div class="modal-body">
+        <h3><span class="label">STEP 1</span></h3>
+        <p>Make a torrent file using your favourite torrent client. Use <code>http://<%= request.host_with_port %>/announce</code> as the tracker url.</p>
+        <p>Do not set the private flag on.</p>
+
+        <h3><span class="label">STEP 2</span></h3>
+        <p>Start seeding the newly created torrent and upload the file using the form below.</p>
+
+        <%= form_tag({:action => :upload}, :multipart => true) do |f| %>
+            <%= file_field_tag 'file' %>
+            <%= submit_tag 'submit' %>
+        <% end %>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    </div>
 </div>
 </body>
 </html>
