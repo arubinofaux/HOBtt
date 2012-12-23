@@ -42,9 +42,20 @@ header {
   padding: 0.5em 0;
 }
 
-#logo {
+#header_container {
   width: 75%;
   margin: 0 auto;
+}
+
+#logo {
+  display: inline;
+  float: left;
+}
+
+#upload_link {
+  display: inline;
+  float: right;
+  margin-top: 1em;
 }
 
 #main_container {
@@ -54,6 +65,14 @@ header {
 section#main {
   width: 75%;
   margin: 0 auto;
+}
+
+#torrents_table {
+  margin-top: 2em;
+}
+
+#torrents_table > thead > th > tr {
+  border: none;
 }
 
 #footer_container {

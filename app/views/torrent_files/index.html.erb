@@ -1,15 +1,12 @@
-<p><%= link_to 'Upload', upload_url %> a torrent file</p>
-
-<table>
-    <thead>
+<table id="torrents_table" class="table table-striped">
+    <thead class="red_bg">
         <tr>
-            <th>DL</th>
-            <th></th>
+            <th colspan="2">DL</th>
             <th>Name</th>
             <th>Size</th>
             <th>Files</th>
-            <th>Seeders</th>
-            <th>Leechers</th>
+            <th><i class="icon-circle-arrow-up icon-white"></i></th>
+            <th><i class="icon-circle-arrow-down icon-white"></i></th>
         </tr>
     </thead>
 <% @torrent_files.each do |f| %>

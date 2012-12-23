@@ -9,7 +9,6 @@ gem 'rails', '3.2.3'
 gem 'pg'
 gem 'bencode'
 gem 'thin'
-gem 'whenever', :require => false
 gem 'dynamic_form'
 gem 'foreman'
 gem 'delayed_job_active_record'
