@@ -60,8 +60,12 @@
         <p>Start seeding the newly created torrent and upload the file using the form below.</p>
 
         <%= form_tag({:action => :upload}, :multipart => true) do |f| %>
-            <%= file_field_tag 'file' %>
-            <%= submit_tag 'submit' %>
+            <input id="file" name="file" type="file">
+            <div class="input-append">
+                <input id="file_path" class="input-xlarge" type="text">
+                <a id="fake_file_button" class="btn">Browse</a>
+                <input name="commit" type="submit" value="Submit" class="btn">
+            </div>
         <% end %>
     </div>
     <div class="modal-footer">

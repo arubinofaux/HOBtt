@@ -1,4 +1,11 @@
-jQuery(document).ready(function($) {
-    // $("torrents_table tbody tr:nth-child(odd) th").css("background-color", "#f9f9f9");
+jQuery(document).ready(function() {
     $(".alert").alert();
+
+    $("input[id=file]").change(function() {
+        $("#file_path").val($(this).val());
+    });
+
+    $("#fake_file_button").on("click", function() {
+        $('input[id=file]').click();
+    });
 });
