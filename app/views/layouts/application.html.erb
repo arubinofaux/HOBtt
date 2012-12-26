@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Bttracker</title>
+  <title>HOBtt</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
@@ -54,31 +54,6 @@
     </footer>
 </div>
 
-<div id="upload" class="modal hide fade" role="dialog" aria-labelledby="uploadLabel" aria-hidden="true">
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h2 id="uploadLabel">Upload a torrent file</h2>
-    </div>
-    <div class="modal-body">
-        <h3><span class="label">STEP 1</span></h3>
-        <p>Make a torrent file using your favourite torrent client. Use <code>http://<%= request.host_with_port %>/announce</code> as the tracker url.</p>
-        <p>Do not set the private flag on.</p>
-
-        <h3><span class="label">STEP 2</span></h3>
-        <p>Start seeding the newly created torrent and upload the file using the form below.</p>
-
-        <%= form_tag({:action => :upload}, :multipart => true) do |f| %>
-            <input id="file" name="file" type="file">
-            <div class="input-append">
-                <input id="file_path" class="input-xlarge" type="text">
-                <a id="fake_file_button" class="btn">Browse</a>
-                <input name="commit" type="submit" value="Submit" class="btn">
-            </div>
-        <% end %>
-    </div>
-    <div class="modal-footer">
-        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-    </div>
-</div>
+<%= render "torrent_files/upload" %>
 </body>
 </html>
