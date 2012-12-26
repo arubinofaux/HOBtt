@@ -10,15 +10,15 @@
 <header class="red_bg">
     <div id="header_container">
         <div id="logo">
-            <h1>HOBtt</h1>
+            <a href=<%= root_url %> class="no-deco"><h1 class="text" title="HOBtt">HOBtt</h1></a>
         </div>
         <div id="upload_link">
             <button type="button" role="button" class="btn" data-toggle="modal" data-target="#upload"><i class="icon-file"></i> Upload a torrent file</button>
         </div>
 		<div id="search_form">
-			<form class="form-search">
+			<form id="search" class="form-search" action=<%= search_path %>>
 				<div class="input-append">
-				    <input type="text" class="input-large search-query" placeholder="Search torrents">
+				    <input type="text" class="input-large search-query" placeholder="Search torrents" name="q">
 				    <button type="submit" class="btn">Search</button>
 				</div>
 			</form>

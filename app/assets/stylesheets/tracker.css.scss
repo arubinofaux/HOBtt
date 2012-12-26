@@ -23,6 +23,20 @@ body {
   min-height: 100%;
 }
 
+.no-deco, .no-deco:hover, .no-deco:active {
+  text-decoration: none;
+}
+
+h1.text {
+  font-size: 3.5em;
+  background-color: #660000;
+  color: transparent;
+  text-shadow: 0px 2px 3px rgba(255,255,255,0.20);
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+}
+
 .red_bg {
   color: #ddd;
   background: #9b0002; /* Old browsers */

@@ -8,6 +8,11 @@ class TorrentFilesController < ApplicationController
   def new
   end
 
+  def search
+    @torrent_files = TorrentFile.search(params[:q])
+    render "index"
+  end
+
   def upload
     @torrent_file = TorrentFile.new
     

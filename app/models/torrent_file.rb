@@ -11,6 +11,15 @@ class TorrentFile < ActiveRecord::Base
   #after_save :save_torrent_file
   
   before_destroy :destroy_torrent_file
+
+  def self.search(term)
+    if term
+      term = "%" + term.downcase + "%"
+      find(:all, :conditions => ['lower(name) LIKE ?', term])
+    else
+      nil
+    end
+  end
   
   private
   
