@@ -52,6 +52,12 @@ header {
   float: left;
 }
 
+#search_form {
+	display: inline;
+	float: right;
+	margin: 1em 2em 0 0;
+}
+
 #upload_link {
   display: inline;
   float: right;
