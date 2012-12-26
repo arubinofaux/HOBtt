@@ -15,7 +15,7 @@ class TorrentFile < ActiveRecord::Base
   def self.search(term)
     if term
       term = "%" + term.downcase + "%"
-      find(:all, :conditions => ['lower(name) LIKE ?', term])
+      find(:all, :conditions => ['lower(name) LIKE ?', term], :order => "name")
     else
       nil
     end

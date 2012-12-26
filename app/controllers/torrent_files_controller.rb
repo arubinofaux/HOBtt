@@ -13,6 +13,11 @@ class TorrentFilesController < ApplicationController
     render "index"
   end
 
+  def live_search
+    @torrent_files = TorrentFile.search(params[:q])
+    render :partial => "torrent_files/results", :layout => false
+  end
+
   def upload
     @torrent_file = TorrentFile.new
     

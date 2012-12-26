@@ -9,4 +9,14 @@ jQuery(document).ready(function() {
 		e.preventDefault();
         $('input[id=file]').click();
     });
+
+    $("#search_form").bind("keyup", function() {
+        var form = $("#search"),
+            url = "/live_search";
+        var formData = form.serialize();
+
+        $.get(url, formData, function(results) {
+            $("#torrents_table tbody").html(results);
+        });
+    });
 });
