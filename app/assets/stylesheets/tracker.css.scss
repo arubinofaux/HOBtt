@@ -75,11 +75,11 @@ header {
 #upload_link {
   display: inline;
   float: right;
-  margin-top: 1em;
+	margin-top: 1em;
 }
 
 #main_container {
-  padding: 5em 0 0;
+  padding: 5em 0 5em;
 }
 
 section#main {
@@ -97,7 +97,7 @@ section#main {
 }
 
 #footer_container {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 100%;
   padding: 2em 0;
