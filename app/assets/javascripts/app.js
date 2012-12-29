@@ -45,13 +45,16 @@ var sortTable = function(sortType, order, index) {
 
     $.each(rows, function(i, row) {
         row.sortKey = $(row).children("td").eq(index).text();
+        if(sortType == "files") {
+            row.sortKey = parseInt(row.sortKey);
+        }
     });
 
     if(sortType == "size") {
         rows.sort(function(a, b) {
             var x = a.sortKey.split(' '), // Inputs are eg. '365.4 KB'
                 y = b.sortKey.split(' '), // Which would yield ["365.4", "KB"]
-                abr = {'Bytes': 0, 'KB': 1, 'MB': 2, 'GB': 3, 'TB': 4};
+                abr = {'Bytes': 0, 'B': 0, 'KB': 1, 'MB': 2, 'GB': 3, 'TB': 4};
 
             if(abr[x[1]] > abr[y[1]]) { return order }
             else if(abr[x[1]] < abr[y[1]]) { return -order }
