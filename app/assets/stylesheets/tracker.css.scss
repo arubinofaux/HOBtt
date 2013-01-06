@@ -86,7 +86,7 @@ section#main {
   width: 75%;
   margin: 0 auto;
   padding-top: 6em;
-  padding-bottom: 3em;
+  padding-bottom: 4em;
 }
 
 #torrents_table th, #torrents_table td {
@@ -98,7 +98,7 @@ section#main {
 }
 
 #footer_container {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 100%;
   padding: 1em 0;

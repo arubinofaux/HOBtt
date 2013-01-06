@@ -21,6 +21,7 @@ jQuery(document).ready(function() {
     });
 
     $(".sortable").on("click", function(e) {
+        e.preventDefault();
         var sortOrder,
             sortType = $(this).attr("title"),
             index = $("#torrents_table thead tr th").index($(this));
@@ -45,9 +46,6 @@ var sortTable = function(sortType, order, index) {
 
     $.each(rows, function(i, row) {
         row.sortKey = $(row).children("td").eq(index).text();
-        if(sortType == "files") {
-            row.sortKey = parseInt(row.sortKey);
-        }
     });
 
     if(sortType == "size") {
@@ -56,9 +54,14 @@ var sortTable = function(sortType, order, index) {
                 y = b.sortKey.split(' '), // Which would yield ["365.4", "KB"]
                 abr = {'Bytes': 0, 'B': 0, 'KB': 1, 'MB': 2, 'GB': 3, 'TB': 4};
 
-            if(abr[x[1]] > abr[y[1]]) { return order }
-            else if(abr[x[1]] < abr[y[1]]) { return -order }
-            else { return (parseFloat(x[0]) < parseFloat(y[0])) ? -order : order }
+            if(abr[x[1]] > abr[y[1]]) { return order; }
+            else if(abr[x[1]] < abr[y[1]]) { return -order; }
+            else { return (parseFloat(x[0]) < parseFloat(y[0])) ? -order : order; }
+        });
+    }
+    else if(sortType == "files") {
+        rows.sort(function(a, b) {
+            return (parseInt(a.sortKey) < parseInt(b.sortKey)) ? -order : order;
         });
     }
     else {
